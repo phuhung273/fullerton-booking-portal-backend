@@ -9,13 +9,18 @@ const RegisterValidation = Joi.object<IUser>({
     password: Joi.string().min(3).max(15).required(),
 });
 
+const UserAssignRoleValidation = Joi.object({
+    userId: Joi.string().required(),
+    roleId: Joi.string().required(),
+});
+
 const RoleValidation = Joi.object<IRole>({
     name: Joi.string().min(3).max(15).required(),
 });
 
-const RoleAssignValidation = Joi.object({
+const PermissionAddRoleValidation = Joi.object({
+    permissionId: Joi.string().required(),
     roleId: Joi.string().required(),
-    userId: Joi.string().required(),
 });
 
 const PermissionValidation = Joi.object<IPermission>({
@@ -24,7 +29,8 @@ const PermissionValidation = Joi.object<IPermission>({
 
 export {
     RegisterValidation,
+    UserAssignRoleValidation,
     RoleValidation,
-    RoleAssignValidation,
     PermissionValidation,
+    PermissionAddRoleValidation
 }

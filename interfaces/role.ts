@@ -1,6 +1,5 @@
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 export default interface IRole extends Document {
-    _id: ObjectId,
     name: string;
 }

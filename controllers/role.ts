@@ -24,8 +24,8 @@ async function assignToUser(req: Request, res: Response, next: NextFunction) {
     const { roleId, userId } = req.body;
 
     try {
-        const user = await User.assignRole(userId, roleId);
-        return sendData(res, user);
+        const data = await User.assignRole(userId, roleId);
+        return sendData(res, data);
     } catch (error) {
         if(error instanceof Error){
             return sendError(res, error, error.message);

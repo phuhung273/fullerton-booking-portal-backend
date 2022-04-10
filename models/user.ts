@@ -44,14 +44,14 @@ UserSchema.static({
             throw new Error("Role not found");
         }
 
-        const user = await this.findByIdAndUpdate(id, {
+        const data = await this.findByIdAndUpdate(id, {
             role: role._id,
         });
-        if(!user){
+        if(!data){
             throw new Error("User not found");
         }
 
-        return user;
+        return data;
     }
 })
 

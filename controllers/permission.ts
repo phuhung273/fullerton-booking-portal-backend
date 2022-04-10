@@ -16,6 +16,26 @@ function store(req: Request, res: Response, next: NextFunction) {
         });
 };
 
+/**
+ * Add a role to a permission
+ */
+ async function addRole(req: Request, res: Response, next: NextFunction) {
+    const { roleId, permissionId } = req.body;
+
+    try {
+        const data = await Permission.addRole(permissionId, roleId);
+        return sendData(res, data);
+    } catch (error) {
+        if(error instanceof Error){
+            return sendError(res, error, error.message);
+        }
+        else{
+            return sendError(res, error);
+        }
+    }
+};
+
 export default {
-    store 
+    store,
+    addRole,
 };
