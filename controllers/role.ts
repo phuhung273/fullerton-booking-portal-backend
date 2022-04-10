@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { sendData, sendError } from '../utils/response';
 import Role from '../models/role';
 import User from '../models/user';
 
-function store(req: Request, res: Response, next: NextFunction) {
+function store(req: Request, res: Response) {
     const { name } = req.body;
 
     return Role.create({
@@ -20,7 +20,7 @@ function store(req: Request, res: Response, next: NextFunction) {
 /**
  * Assign a role to a user
  */
-async function assignToUser(req: Request, res: Response, next: NextFunction) {
+async function assignToUser(req: Request, res: Response) {
     const { roleId, userId } = req.body;
 
     try {

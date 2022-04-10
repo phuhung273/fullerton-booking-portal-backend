@@ -1,7 +1,8 @@
 import mongoose, { Schema, Model } from 'mongoose';
 import IRole from '../interfaces/role';
+import { PERMISSION_SCHEMA_NAME } from './permission';
 
-const ROLE_SCHEMA_NAME = 'Role';
+export const ROLE_SCHEMA_NAME = 'Role';
 
 /**
  * Schema
@@ -22,6 +23,15 @@ const RoleSchema = new Schema<IRole, RoleModel>(
  * - virtuals
  */
 
+RoleSchema.virtual('permissions', {
+    ref: PERMISSION_SCHEMA_NAME,
+    localField: '_id',
+    foreignField: 'roles',
+    options: {
+      select: '_id name',
+    }
+});
+
 /**
  * Methods
  */
@@ -37,7 +47,3 @@ interface RoleModel extends Model<IRole> {
  * Register
  */
 export default mongoose.model<IRole, RoleModel>(ROLE_SCHEMA_NAME, RoleSchema);
-
-export {
-    ROLE_SCHEMA_NAME
-}

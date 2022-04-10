@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { sendData, sendError } from '../utils/response';
 import Permission from '../models/permission';
 
-function store(req: Request, res: Response, next: NextFunction) {
+function store(req: Request, res: Response) {
     const { name } = req.body;
 
     return Permission.create({
@@ -19,7 +19,7 @@ function store(req: Request, res: Response, next: NextFunction) {
 /**
  * Add a role to a permission
  */
- async function addRole(req: Request, res: Response, next: NextFunction) {
+ async function addRole(req: Request, res: Response) {
     const { roleId, permissionId } = req.body;
 
     try {

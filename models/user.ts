@@ -2,7 +2,7 @@ import mongoose, { Schema, Model } from 'mongoose';
 import IUser from '../interfaces/user';
 import Role, { ROLE_SCHEMA_NAME } from './role';
 
-const USER_SCHEMA_NAME = 'User';
+export const USER_SCHEMA_NAME = 'User';
 
 /**
  * Schema
@@ -59,7 +59,3 @@ UserSchema.static({
  * Register
  */
 export default mongoose.model<IUser, UserModel>(USER_SCHEMA_NAME, UserSchema);
-
-export {
-    USER_SCHEMA_NAME
-}

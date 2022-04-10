@@ -1,10 +1,12 @@
 import express from 'express';
 import controller from '../controllers/auth';
-import { RegisterValidation } from '../middlewares/auth';
-import { validateBody } from '../middlewares/validate';
+import { AuthValidation } from '../middlewares/requestSchema';
+import { validateBody, validateJwt } from '../middlewares/validate';
 
 const router = express.Router();
 
-router.post('/register', validateBody(RegisterValidation), controller.register);
+router.post('/register', validateBody(AuthValidation), controller.register);
+router.post('/login', validateBody(AuthValidation), controller.login);
+router.get('/handshake', validateJwt, controller.handshake);
 
 export = router;

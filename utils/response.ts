@@ -3,26 +3,21 @@ import { Response } from 'express';
 /**
  * Response error in structured format
  */
-function sendError(res: Response, data?: any, message?: string) {
-    return res.json({
-        data: data,
+export function sendError(res: Response, data?: any, message: string = 'Error', statusCode: number = 200) {
+    return res.status(statusCode).json({
+        data,
         success: false,
-        message: message || 'Error'
+        message,
     })
 }
 
 /**
  * Response data in structured format
  */
-function sendData(res: Response, data?: any, message?: string) {
+export function sendData(res: Response, data?: any, message: string = 'Success') {
     return res.json({
-        data: data,
+        data,
         success: true,
-        message: message || 'Success'
+        message,
     })
-}
-
-export {
-    sendError,
-    sendData,
 }

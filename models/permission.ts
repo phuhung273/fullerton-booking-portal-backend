@@ -2,7 +2,7 @@ import mongoose, { Schema, Model } from 'mongoose';
 import IPermission from '../interfaces/permission';
 import Role, { ROLE_SCHEMA_NAME } from './role';
 
-const PERMISSION_SCHEMA_NAME = 'Permission';
+export const PERMISSION_SCHEMA_NAME = 'Permission';
 
 /**
  * Schema
@@ -58,7 +58,3 @@ PermissionSchema.static({
  * Register
  */
 export default mongoose.model<IPermission, PermissionModel>(PERMISSION_SCHEMA_NAME, PermissionSchema);
-
-export {
-    PERMISSION_SCHEMA_NAME,
-}

@@ -1,6 +1,6 @@
 import express from 'express';
 import controller from '../controllers/role';
-import { RoleValidation, UserAssignRoleValidation } from '../middlewares/auth';
+import { RoleValidation, UserAssignRoleValidation } from '../middlewares/requestSchema';
 import { validateBody } from '../middlewares/validate';
 
 const router = express.Router();

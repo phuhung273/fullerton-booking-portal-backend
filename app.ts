@@ -6,10 +6,16 @@ import authRoutes from './routes/auth';
 import roleRoutes from './routes/role';
 import permissionRoutes from './routes/permission';
 import mongoose from 'mongoose';
+var cors = require('cors');
 
-const router = express();
+const app = express();
+app.use(cors())
 
 /** Connect to Mongo */
+if(process.env.ENV !== 'production'){
+    mongoose.set('debug', true);
+}
+
 mongoose
     .connect(config.mongo.url)
     .catch((error) => {
@@ -17,14 +23,14 @@ mongoose
     });
 
 /** Parse the body of the request */
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 /** Routes go here */
-router.use('/auth', authRoutes);
-router.use('/roles', roleRoutes);
-router.use('/permissions', permissionRoutes);
+app.use('/auth', authRoutes);
+app.use('/roles', roleRoutes);
+app.use('/permissions', permissionRoutes);
 
-const httpServer = http.createServer(router);
+const httpServer = http.createServer(app);
 
 httpServer.listen(config.server.port, () => console.info(`Server is running ${config.server.hostname}:${config.server.port}`));

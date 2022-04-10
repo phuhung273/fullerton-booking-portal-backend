@@ -1,6 +1,6 @@
 import express from 'express';
 import controller from '../controllers/permission';
-import { PermissionAddRoleValidation, PermissionValidation } from '../middlewares/auth';
+import { PermissionAddRoleValidation, PermissionValidation } from '../middlewares/requestSchema';
 import { validateBody } from '../middlewares/validate';
 
 const router = express.Router();
