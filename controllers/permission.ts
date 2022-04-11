@@ -12,7 +12,7 @@ function store(req: Request, res: Response) {
             return sendData(res, data);
         })
         .catch((error) => {
-            return sendError(res, error);
+            return sendError(res, error, error.message, 500);
         });
 };
 
@@ -27,10 +27,10 @@ function store(req: Request, res: Response) {
         return sendData(res, data);
     } catch (error) {
         if(error instanceof Error){
-            return sendError(res, error, error.message);
+            return sendError(res, error, error.message, 500);
         }
         else{
-            return sendError(res, error);
+            return sendError(res, error, 'Error', 500);
         }
     }
 };

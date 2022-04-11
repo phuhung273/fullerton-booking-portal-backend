@@ -16,7 +16,7 @@ async function register(req: Request, res: Response) {
 
     bcrypt.hash(password, 10, (error, hash) => {
         if (error) {
-            return sendError(res, error, error.message)
+            return sendError(res, error, error.message, 500)
         }
 
         const user = new User({
@@ -29,7 +29,7 @@ async function register(req: Request, res: Response) {
                 return sendData(res, data);
             })
             .catch((error) => {
-                return sendError(res, error);
+                return sendError(res, error, error.message, 500);
             });
     });
 };
@@ -53,7 +53,7 @@ async function login(req: Request, res: Response) {
 
     bcrypt.compare(password, user.password, (error, result) => {
         if (error) {
-            return sendError(res, error, 'Error', 500);
+            return sendError(res, error, error.message, 500);
         } else if (result){
             signJwt(
                 {
@@ -93,7 +93,7 @@ async function handshake(req: Request, res: Response) {
         .lean();
 
     if(!user){
-        return sendError(res, null, "User not found");
+        return sendError(res, null, "User not found", 500);
     }
 
     signJwt(

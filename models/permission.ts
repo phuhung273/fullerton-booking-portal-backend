@@ -40,14 +40,14 @@ PermissionSchema.static({
     addRole: async function(id: string, roleId: string){
         const role = await Role.findById(roleId);
         if(!role){
-            throw new Error("Role not found");
+            throw new Error(`Role id: ${roleId} not found`);
         }
 
         const data = await this.findByIdAndUpdate(id, {
             $addToSet: { roles: role._id, }
         });
         if(!data){
-            throw new Error("Permission not found");
+            throw new Error(`Permission id: ${id} not found`);
         }
 
         return data;

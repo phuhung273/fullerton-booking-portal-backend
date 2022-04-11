@@ -41,14 +41,14 @@ UserSchema.static({
     assignRole: async function(id: string, roleId: string){
         const role = await Role.findById(roleId);
         if(!role){
-            throw new Error("Role not found");
+            throw new Error(`Role id: ${roleId} not found`);
         }
 
         const data = await this.findByIdAndUpdate(id, {
             role: role._id,
         });
         if(!data){
-            throw new Error("User not found");
+            throw new Error(`User id ${id} not found`);
         }
 
         return data;

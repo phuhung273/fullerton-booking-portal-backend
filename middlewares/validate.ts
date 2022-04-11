@@ -61,18 +61,14 @@ export function validateRole(roles: Array<string>) {
 
         // Jwt middleware broken
         if(!id) {
-            sendError(res, null, 'Broken token', 500);
-            return;
+            return sendError(res, null, 'Broken token', 500);
         }
 
         const user = await User.findById(id).populate('role')
         if(!user) {
-            sendError(res, null, 'User not found', 401);
-        }
-
-        if(!user?.role || !roles.includes(user.role.name)){
-            sendError(res, null, "You're not allowed to execute this operation");
-            return;
+            return sendError(res, null, 'User not found', 401);
+        } else if(!user?.role || !roles.includes(user.role.name)){
+            return sendError(res, null, "You're not allowed to execute this operation");
         }
 
         // Attach user object for later use

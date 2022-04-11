@@ -11,11 +11,11 @@ const BookingSchema = new Schema<IBooking, BookingModel>(
     {
         type: { type: String, required: true, },
         location: { type: String, required: true, },
-        proposedTime: [{ type: Date }],
+        proposedTimes: [{ type: Date }],
         selectedTime: { type: Date },
         status: {
             type: String,
-            required: true, 
+            required: true,
             enum: ['review', 'approve', 'reject'],
         },
         staff: { type: Schema.Types.ObjectId, ref: USER_SCHEMA_NAME },
