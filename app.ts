@@ -5,6 +5,7 @@ import config from './config/config';
 import authRoutes from './routes/auth';
 import roleRoutes from './routes/role';
 import permissionRoutes from './routes/permission';
+import bookingRoutes from './routes/booking';
 import mongoose from 'mongoose';
 var cors = require('cors');
 
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use('/auth', authRoutes);
 app.use('/roles', roleRoutes);
 app.use('/permissions', permissionRoutes);
+app.use('/bookings', bookingRoutes);
 
 const httpServer = http.createServer(app);
 
