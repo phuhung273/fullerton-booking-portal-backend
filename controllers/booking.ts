@@ -57,6 +57,29 @@ function store(req: Request, res: Response) {
         });
 };
 
+async function remove(req: Request, res: Response) {
+    const { id } = req.params;
+    const { user } = req.body;
+
+    const booking = await Booking.findById(id);
+
+    if(!booking){
+        return sendError(res, null, `Booking id: ${id} not found`, 422);
+    } else if(booking.status !== 'review') {
+        return sendError(res, null, "Cannot delete approved/rejected booking");
+    } else if(booking.staff.toString() !== user.id) {
+        return sendError(res, null, "Booking not belongs to user", 401);
+    }
+
+    return booking.delete((error, data) => {
+        if(error) {
+            return sendError(res, error, error.message, 500);
+        }
+
+        return sendData(res, data);
+    });
+};
+
 async function approve(req: Request, res: Response) {
     const { id, selectedTime } = req.body;
 
@@ -106,6 +129,7 @@ async function reject(req: Request, res: Response) {
 export default {
     index,
     store,
+    remove,
     approve,
     reject,
 };
