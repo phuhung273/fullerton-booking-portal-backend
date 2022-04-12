@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', validateJwt, controller.index);
 router.post('/', validateRole(['staff']), controller.store);
 router.delete('/:id', validateRole(['staff']), controller.remove);
-router.post('/approve', validateRole(['admin']), controller.approve);
-router.post('/reject', validateRole(['admin']), controller.reject);
+router.post('/:id/approve', validateRole(['admin']), controller.approve);
+router.post('/:id/reject', validateRole(['admin']), controller.reject);
 
 export = router;

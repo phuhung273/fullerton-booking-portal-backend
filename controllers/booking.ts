@@ -20,10 +20,10 @@ async function index(req: Request, res: Response) {
 
     try {
         if(user.role.name == 'staff'){
-            const data = await Booking.find({ staff: user._id }).lean();
+            const data = await Booking.find({ staff: user._id }).sort({ createdAt: -1 }).lean();
             return sendData(res, data);
         } else if(user.role.name == 'admin'){
-            const data = await Booking.find().lean();
+            const data = await Booking.find().sort({ createdAt: -1 }).lean();
             return sendData(res, data);
         }
         // TODO: not in thoses roles
@@ -81,15 +81,17 @@ async function remove(req: Request, res: Response) {
 };
 
 async function approve(req: Request, res: Response) {
-    const { id, selectedTime } = req.body;
+    const { id } = req.params;
+    const selectedIndex: number = req.body.index;
 
     const booking = await Booking.findById(id);
+    const selectedTime = booking?.proposedTimes[selectedIndex];
     if(!booking) {
         return sendError(res, null, `Booking id: ${id} not found`, 422);
     } else if(booking.status !== 'review'){
         return sendError(res, null, "Already approved/rejected", 422);
-    } else if(!booking.proposedTimes.includes(selectedTime)){
-        return sendError(res, null, `Invalid selected time: ${selectedTime}`, 422);
+    } else if(!selectedTime){
+        return sendError(res, null, `Invalid index: ${selectedIndex}`, 422);
     }
 
     booking.selectedTime = selectedTime;
@@ -105,7 +107,8 @@ async function approve(req: Request, res: Response) {
 };
 
 async function reject(req: Request, res: Response) {
-    const { id, rejectReason } = req.body;
+    const { id } = req.params;
+    const { rejectReason } = req.body;
 
     const booking = await Booking.findById(id);
     if(!booking) {

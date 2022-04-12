@@ -5,7 +5,7 @@ export default interface IBooking extends Document {
     location: string;
     proposedTimes: Array<Date>;
     selectedTime?: Date;
-    status: string;
+    status: 'review' | 'approve' | 'reject';
     staff: ObjectId;
     rejectReason?: string;
 }
