@@ -1,5 +1,7 @@
 import { Document } from 'mongoose';
 
-export default interface IRole extends Document {
+interface IRole extends Document {
     name: string;
 }
+
+export default IRole;

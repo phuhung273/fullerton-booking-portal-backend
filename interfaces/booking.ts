@@ -1,6 +1,6 @@
 import { Document, ObjectId } from 'mongoose';
 
-export default interface IBooking extends Document {
+interface IBooking extends Document {
     type: string;
     location: string;
     proposedTimes: Array<Date>;
@@ -9,3 +9,5 @@ export default interface IBooking extends Document {
     staff: ObjectId;
     rejectReason?: string;
 }
+
+export default IBooking;

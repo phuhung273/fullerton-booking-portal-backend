@@ -7,13 +7,16 @@ export const ROLE_SCHEMA_NAME = 'Role';
 /**
  * Schema
  */
+interface RoleModel extends Model<IRole> {
+}
+
 const RoleSchema = new Schema<IRole, RoleModel>(
-    {
-        name: { type: String, required: true, unique: true },
-    },
-    {
-        timestamps: true
-    }
+  {
+    name: { type: String, required: true, unique: true },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 /**
@@ -24,24 +27,21 @@ const RoleSchema = new Schema<IRole, RoleModel>(
  */
 
 RoleSchema.virtual('permissions', {
-    ref: PERMISSION_SCHEMA_NAME,
-    localField: '_id',
-    foreignField: 'roles',
-    options: {
-      select: '_id name',
-    }
+  ref: PERMISSION_SCHEMA_NAME,
+  localField: '_id',
+  foreignField: 'roles',
+  options: {
+    select: '_id name',
+  },
 });
 
 /**
  * Methods
  */
 
-
 /**
  * Statics
  */
-interface RoleModel extends Model<IRole> {
-}
 
 /**
  * Register

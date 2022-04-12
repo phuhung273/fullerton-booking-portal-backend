@@ -7,23 +7,26 @@ export const BOOKING_SCHEMA_NAME = 'Booking';
 /**
  * Schema
  */
+interface BookingModel extends Model<IBooking> {
+}
+
 const BookingSchema = new Schema<IBooking, BookingModel>(
-    {
-        type: { type: String, required: true, },
-        location: { type: String, required: true, },
-        proposedTimes: [{ type: Date }],
-        selectedTime: { type: Date },
-        status: {
-            type: String,
-            required: true,
-            enum: ['review', 'approve', 'reject'],
-        },
-        staff: { type: Schema.Types.ObjectId, ref: USER_SCHEMA_NAME },
-        rejectReason: { type: String, },
+  {
+    type: { type: String, required: true },
+    location: { type: String, required: true },
+    proposedTimes: [{ type: Date }],
+    selectedTime: { type: Date },
+    status: {
+      type: String,
+      required: true,
+      enum: ['review', 'approve', 'reject'],
     },
-    {
-        timestamps: true
-    }
+    staff: { type: Schema.Types.ObjectId, ref: USER_SCHEMA_NAME },
+    rejectReason: { type: String },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 /**
@@ -37,15 +40,12 @@ const BookingSchema = new Schema<IBooking, BookingModel>(
  * Methods
  */
 
-
 /**
  * Statics
  */
-interface BookingModel extends Model<IBooking> {
-}
 
 BookingSchema.static({
-})
+});
 
 /**
  * Register

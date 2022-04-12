@@ -1,6 +1,8 @@
 import { Document, ObjectId } from 'mongoose';
 
-export default interface IPermission extends Document {
+interface IPermission extends Document {
     name: string;
     roles?: Array<ObjectId>;
 }
+
+export default IPermission;
